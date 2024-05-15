@@ -1,8 +1,10 @@
 .header {
   width: 100%;
   height: 4rem;
-  /*border-bottom: 1px solid #27272a;*/
+  border-bottom: 1px solid #27272a;
   /*background-color: rgba(0, 0, 0, 0.3);*/
+  /*background-color: #5E2129;*/
+
   position: fixed;
   top: 0;
   left: 0;
