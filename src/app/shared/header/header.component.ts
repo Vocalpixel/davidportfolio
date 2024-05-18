@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {dateTimestampProvider} from "rxjs/internal/scheduler/dateTimestampProvider";
 
 @Component({
   selector: 'app-header',
@@ -9,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+    protected readonly dateTimestampProvider = dateTimestampProvider;
 }
