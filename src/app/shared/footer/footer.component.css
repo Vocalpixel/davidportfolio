@@ -33,4 +33,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  animation: fade-up 0.25s;
+}
+
+.made-container{
+  display: flex;
+  align-items: center;
+  height: 33px;
+}
+
+.madeText {
+  margin-right: 8px;
+}
+
+.lg-cont{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ng-icon {
+
+  display: inline-block;
+  vertical-align: center;
+}
+
+@keyframes fade-up {
+  0%{
+    opacity: 0;
+    transform: translateY(+30px) scale(0.9);
+
+
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
 }

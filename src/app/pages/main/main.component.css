@@ -2,21 +2,20 @@
 
 .main {
   height: calc(100vh - 8rem);
-  width: 90%;
+  width: 100%;
   margin-top: 4rem;
   margin-left: auto;
   margin-right: auto;
   max-width: 1200px;
   animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  position: relative;
+  animation: fade-in .25s;
 }
 
-.main * {
-  transform-style: preserve-3d;
-}
 
 .sec1 {
   height: calc(100vh - 8rem);
-  padding: 5vh 10px 5vh 20px;
+  padding: 5vh 20px 5vh 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,4 +105,17 @@ p {
 .button:active {
   background-color: #27272a;
   color: rgb(96, 165, 250);
+}
+
+@keyframes fade-in {
+  0%{
+    opacity: 0;
+    transform: scale(0.9);
+
+
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
 }

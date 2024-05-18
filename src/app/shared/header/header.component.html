@@ -3,24 +3,24 @@
     <div class="sec-nav-logo">
       <div class="logo-container">
         <a class="logo">
-          <div class="theme-icon i-home">
-            <i class="pi pi-home"></i>
+          <div class="theme-icon i-home" routerLink="/home" routerLinkActive="active">
+            <span class="pi pi-home"></span>
           </div>
-          <span class="name">Portfolio 2024</span>
+          <span class="name" routerLink="/home"  routerLinkActive="active">Portfolio 2024</span>
         </a>
       </div>
     </div>
 
     <div class="sec-nav-menu">
       <ul class="nav-menu">
-        <li>
-          <a class="nav-link">galería</a>
+        <li >
+          <a class="nav-link">about me</a>
         </li>
         <li>
-          <a  class="nav-link">sobre mi</a>
+          <a  routerLink="/gallery" routerLinkActive="active" class="nav-link">gallery</a>
         </li>
         <li>
-          <a class="nav-link">mi cv</a>
+          <a class="nav-link">my cv</a>
         </li>
       </ul>
     </div>
@@ -29,10 +29,10 @@
       <div class="logo-container">
         <a class="logo">
           <div class="theme-icon">
-            <i class="pi pi-github"></i>
+            <i onclick="location.href='https://github.com/Vocalpixel'" class="pi pi-github"></i>
           </div>
           <div class="theme-icon">
-            <i class="pi pi-linkedin"></i>
+            <i onclick="location.href='https://www.linkedin.com/in/isaac-david-bernal-chirino/'" class="pi pi-linkedin"></i>
           </div>
           <div>
             <i class="lh"></i>

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
 .header {
   width: 100%;
   height: 4rem;
@@ -8,11 +6,11 @@
   top: 0;
   left: 0;
   z-index: 1100;
-  backdrop-filter: blur(15px);
   transition: 0.5s;
+  backdrop-filter: blur(15px);
 }
 
-.header:hover{
+.header:hover {
   border-bottom: 1px solid #27272a;
 }
 
@@ -22,11 +20,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  animation: fade-down 0.25s;
 }
 
 .sec-nav-logo,
 .sec-nav-menu,
-.sec-nav-social{
+.sec-nav-social {
   width: 33.333%;
 }
 
@@ -35,7 +34,7 @@
   justify-content: flex-end;
 }
 
-.sec-nav-logo{
+.sec-nav-logo {
   display: flex;
   justify-content: flex-start;
 }
@@ -56,7 +55,6 @@
   width: 33px;
   border-radius: 50%;
   margin-right: 10px;
-
 }
 
 .name {
@@ -84,16 +82,17 @@
   cursor: pointer;
 }
 
-.lh{
+.lh {
   margin-left: 10px;
-  border-left: 1px solid  #27272a;
+  border-left: 1px solid #27272a;
 }
 
 .nav-link {
   border-radius: 6px;
   height: 33px;
+  border: 1px solid rgba(39, 39, 42, 0);
   border-bottom: 1px solid rgba(0, 0, 0, 0);
-  background-color: rgba(255,255,255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   color: #eeeeee;
   padding: 5px 10px;
   transition: border-color 0.5s;
@@ -104,19 +103,26 @@
   border-bottom: 1px solid rgb(96, 165, 250);
 }
 
+.nav-link.active,
+.theme-icon.active,
 .nav-link:active,
-.theme-icon:active{
-  background-color:  #09090b;
+.theme-icon:active {
+  border: 1px solid #27272a;
+  border-bottom: 1px solid rgb(96, 165, 250);
+  background-color: #09090b;
   color: rgb(96, 165, 250);
 }
 
+.name.active{
+  color: rgb(96, 165, 250)
+}
 
 .theme-icon {
   border: 1px solid rgba(39, 39, 42, 0);
   height: 33px;
   width: 33px;
   border-radius: 50%;
-  background-color: rgba(255,255,255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +131,20 @@
   transition: border-color 0.5s;
 }
 
-.i-home{
+.i-home {
   margin-left: 0px;
   margin-right: 10px;
+}
+
+@keyframes fade-down {
+  0%{
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+
+
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
 }
