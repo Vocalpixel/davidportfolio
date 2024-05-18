@@ -210,9 +210,17 @@
 }
 
 
+.tv_li {
+  background-image: url(/assets/img/textures/windows.jpg);
+  filter: blur(20px) brightness(200%);
+  width: 16vw;
+  height: 9vw;
+  transform: rotateX(-90deg) rotateY(90deg) translateX(-20.5vw) translateZ(.4vw) translateY(-17vw);
+}
+
 
 .tv_r {
-  background-image: url("/assets/img/textures/windows.jpg");
+  background-image: url(/assets/img/textures/windows.jpg);
   width: 16vw;
   height: 9vw;
   transform: rotateX(-90deg) rotateY(90deg) translateY(-17vw) translateZ(.5vw) translateX(-20.5vw);
