@@ -39,13 +39,13 @@
   --color-accent-rgb: 96, 165, 250;             /* componer rgba(var(--color-accent-rgb), .x) */
 
   /* --- Patrón de puntos (fondo) --- */
-  --color-dot: rgba(255, 255, 255, 0.08);
+  --color-dot: rgba(255, 255, 255, 0.035);
   --dot-size: 12px;                             /* radio del punto (diámetro = 24px) */
   --dot-period: 72px;                           /* período = diámetro + gap (gap = 2× diámetro) */
 
   /* --- Tipografía --- */
-  --font-family-base: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --font-family-display: 'Poppins', "Segoe UI", sans-serif;
+  --font-family-base: 'Poppins', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-display: 'Poppins', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
   --font-size-sm: 14px;
@@ -107,7 +107,7 @@ body.light-theme {
   --color-border-transparent: rgba(212, 212, 216, 0);
   --color-border-subtle: rgba(0, 0, 0, 0.05);
 
-  --color-dot: rgba(0, 0, 0, 0.1);
+  --color-dot: rgba(0, 0, 0, 0.05);
 }
 
 /* =========================================================================

@@ -1,3 +1,61 @@
 <div class="gallery">
-  <div class="sec1"></div>
+  <div class="carousel">
+    <div class="carousel-viewport">
+      <div class="carousel-track"
+           [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'">
+        @for (image of displayImages; track image.src) {
+          <div class="carousel-slide">
+            <img [src]="image.src" [alt]="image.alt" draggable="false" />
+          </div>
+        }
+      </div>
+
+      @if (isUsingMocks) {
+        <div class="carousel-mock-badge" title="Imágenes de muestra — agregá las tuyas en gallery.component.ts">
+          <i class="pi pi-image"></i>
+          <span>mock</span>
+        </div>
+      }
+
+      @if (displayImages.length > 1) {
+        <button type="button"
+                class="carousel-nav carousel-nav-prev"
+                (click)="prev()"
+                aria-label="Imagen anterior">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <button type="button"
+                class="carousel-nav carousel-nav-next"
+                (click)="next()"
+                aria-label="Imagen siguiente">
+          <i class="pi pi-chevron-right"></i>
+        </button>
+
+        <button type="button"
+                class="carousel-playpause"
+                (click)="togglePlayPause()"
+                [attr.aria-label]="isPlaying ? 'Pausar autoplay' : 'Reproducir autoplay'">
+          @if (isPlaying) {
+            <i class="pi pi-pause"></i>
+          } @else {
+            <i class="pi pi-play"></i>
+          }
+        </button>
+      }
+    </div>
+
+    @if (displayImages.length > 1) {
+      <div class="carousel-controls">
+        <div class="carousel-dots">
+          @for (image of displayImages; track image.src; let i = $index) {
+            <button type="button"
+                    class="carousel-dot"
+                    [class.active]="i === currentIndex"
+                    (click)="goTo(i)"
+                    [attr.aria-label]="'Ir a la imagen ' + (i + 1)"></button>
+          }
+        </div>
+      </div>
+    }
+  </div>
 </div>
