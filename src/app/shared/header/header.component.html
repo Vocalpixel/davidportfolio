@@ -37,8 +37,8 @@
           <div>
             <i class="lh"></i>
           </div>
-          <div class="theme-icon">
-            <i class="pi pi-moon"></i>
+          <div class="theme-icon" (click)="toggleTheme()" role="button" [attr.aria-label]="isLightTheme ? 'Switch to dark mode' : 'Switch to light mode'">
+            <i class="pi" [class.pi-moon]="!isLightTheme" [class.pi-sun]="isLightTheme"></i>
           </div>
 
         </a>
