@@ -203,7 +203,8 @@ export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
                                 {/* Centro de la Titlebar de VS Code: Barra de título / Command Center */}
                                 <div className="vscode_title_center" onDoubleClick={toggleMaximize}>
                                     <i className="pi pi-search vscode_search_icon"></i>
-                                    <span>{activeTabName} — davidportfolio — Visual Studio Code</span>
+                                    <span className="title_full">{activeTabName} — davidportfolio — Visual Studio Code</span>
+                                    <span className="title_mobile">{activeTabName}</span>
                                 </div>
 
                                 {osTheme === 'win11' ? (

@@ -14,12 +14,14 @@ export function Header({ activeSection, onNavigate }: HeaderProps){
     const { theme, toggleTheme } = useTheme();
     const { effectsEnabled, toggleEffects } = useEffects();
     const [internalNav, setInternalNav] = useState('#home');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const activeNav = activeSection ?? internalNav;
 
     const handleNav = (e: React.MouseEvent, target: string) => {
         e.preventDefault();
         setInternalNav(target);
+        setMobileMenuOpen(false);
         if (onNavigate) {
             onNavigate(target);
         } else {
@@ -31,19 +33,25 @@ export function Header({ activeSection, onNavigate }: HeaderProps){
     const text = {
         es: { 
             brand: 'Portafolio', 
-            about: 'Sobre mi', 
+            home: 'Inicio',
+            about: 'Sobre mí', 
             projects: 'Proyectos', 
             contact: 'Contacto',
             effectsOn: 'Desactivar animaciones',
-            effectsOff: 'Activar animaciones'
+            effectsOff: 'Activar animaciones',
+            menuOpen: 'Abrir menú',
+            menuClose: 'Cerrar menú'
         },
         en: { 
             brand: 'Portfolio', 
+            home: 'Home',
             about: 'About', 
             projects: 'Projects', 
             contact: 'Contact',
             effectsOn: 'Disable animations',
-            effectsOff: 'Enable animations'
+            effectsOff: 'Enable animations',
+            menuOpen: 'Open menu',
+            menuClose: 'Close menu'
         }
     };
 
@@ -117,7 +125,52 @@ export function Header({ activeSection, onNavigate }: HeaderProps){
                 >
                     <i className={`pi ${effectsEnabled ? 'pi-sparkles' : 'pi-pause'}`}></i>
                 </button>
+                <button
+                    type="button"
+                    className={`mobile_menu_btn ${mobileMenuOpen ? 'active' : ''}`}
+                    onClick={() => setMobileMenuOpen(prev => !prev)}
+                    aria-expanded={mobileMenuOpen}
+                    aria-label={mobileMenuOpen ? text[lang].menuClose : text[lang].menuOpen}
+                >
+                    <i className={`pi ${mobileMenuOpen ? 'pi-times' : 'pi-bars'}`}></i>
+                </button>
             </div>
+
+            {/* Menú desplegable adaptado a móvil */}
+            <nav className={`header_mobile_menu ${mobileMenuOpen ? 'is-open' : ''}`} aria-label="Mobile navigation">
+                <a
+                    href="#home"
+                    className={activeNav === '#home' ? 'active' : ''}
+                    onClick={(e) => handleNav(e, '#home')}
+                >
+                    <i className="pi pi-home"></i>
+                    <span>{text[lang].home}</span>
+                </a>
+                <a
+                    href="#about"
+                    className={activeNav === '#about' ? 'active' : ''}
+                    onClick={(e) => handleNav(e, '#about')}
+                >
+                    <i className="pi pi-user"></i>
+                    <span>{text[lang].about}</span>
+                </a>
+                <a
+                    href="#projects"
+                    className={activeNav === '#projects' ? 'active' : ''}
+                    onClick={(e) => handleNav(e, '#projects')}
+                >
+                    <i className="pi pi-briefcase"></i>
+                    <span>{text[lang].projects}</span>
+                </a>
+                <a
+                    href="#contact"
+                    className={activeNav === '#contact' ? 'active' : ''}
+                    onClick={(e) => handleNav(e, '#contact')}
+                >
+                    <i className="pi pi-envelope"></i>
+                    <span>{text[lang].contact}</span>
+                </a>
+            </nav>
         </header>
     );
 }

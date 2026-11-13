@@ -232,19 +232,41 @@ export function Projects() {
                     </button>
                 </div>
 
-                {/* Indicadores de los 5 slots */}
-                <div className="projects_dots" role="tablist" aria-label={text[lang].title}>
-                    {PROJECT_SLOTS.map((slot, index) => (
-                        <button
-                            key={slot.id}
-                            type="button"
-                            role="tab"
-                            aria-selected={index === activeIndex}
-                            aria-label={`Slot ${slot.id}`}
-                            className={`projects_dot ${index === activeIndex ? 'active' : ''}`}
-                            onClick={() => setActiveIndex(index)}
-                        />
-                    ))}
+                {/* Indicadores de los 5 slots (+ flechas compactas en móvil) */}
+                <div className="projects_controls_bottom">
+                    <button
+                        type="button"
+                        className="projects_nav_btn mobile_only prev"
+                        onClick={handlePrev}
+                        aria-label={text[lang].prev}
+                        title={text[lang].prev}
+                    >
+                        <i className="pi pi-chevron-left"></i>
+                    </button>
+
+                    <div className="projects_dots" role="tablist" aria-label={text[lang].title}>
+                        {PROJECT_SLOTS.map((slot, index) => (
+                            <button
+                                key={slot.id}
+                                type="button"
+                                role="tab"
+                                aria-selected={index === activeIndex}
+                                aria-label={`Slot ${slot.id}`}
+                                className={`projects_dot ${index === activeIndex ? 'active' : ''}`}
+                                onClick={() => setActiveIndex(index)}
+                            />
+                        ))}
+                    </div>
+
+                    <button
+                        type="button"
+                        className="projects_nav_btn mobile_only next"
+                        onClick={handleNext}
+                        aria-label={text[lang].next}
+                        title={text[lang].next}
+                    >
+                        <i className="pi pi-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </section>

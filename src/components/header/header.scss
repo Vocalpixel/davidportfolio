@@ -22,9 +22,9 @@
     }
 
     @media (max-width: 420px) {
-        padding: 0 0.5rem;
+        padding: 0 0.85rem;
         height: 3.5rem;
-        gap: 0.3rem;
+        gap: 0.5rem;
     }
 }
 
@@ -54,16 +54,17 @@
         }
 
         @media (max-width: 768px) {
-            display: none;
+            font-size: 0.95rem;
         }
     }
 }
 
-/* --- ESTILO BASE HOMOLOGADO PARA BOTONES CIRCULARES (Home, Lang, Theme, Effects) --- */
+/* --- ESTILO BASE HOMOLOGADO PARA BOTONES CIRCULARES (Home, Lang, Theme, Effects, Menu) --- */
 .header_logo_btn,
 .lang_btn,
 .theme_btn,
-.effects_btn {
+.effects_btn,
+.mobile_menu_btn {
     display: flex;
     width: var(--nav-icon-size);
     height: var(--nav-icon-size);
@@ -85,22 +86,9 @@
         transition: color var(--transition-speed);
     }
 
-    @media (max-width: 480px) {
-        width: 30px;
-        height: 30px;
-
-        i {
-            font-size: 13px;
-        }
-    }
-
-    @media (max-width: 380px) {
-        width: 27px;
-        height: 27px;
-
-        i {
-            font-size: 12px;
-        }
+    @media (max-width: 768px) {
+        width: 34px;
+        height: 34px;
     }
 
     &:hover {
@@ -120,17 +108,21 @@
     }
 }
 
+.mobile_menu_btn {
+    display: none;
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
+}
+
 .lang_btn {
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.5px;
-
-    @media (max-width: 480px) {
-        font-size: 0.68rem;
-    }
 }
 
-/* --- NAVEGACIÓN CENTRAL HOMOLOGADA --- */
+/* --- NAVEGACIÓN CENTRAL HOMOLOGADA (ESCRITORIO) --- */
 .header_nav {
     position: absolute;
     left: 50%;
@@ -141,15 +133,7 @@
     justify-content: center;
 
     @media (max-width: 768px) {
-        position: static;
-        transform: none;
-        flex: 1;
-        min-width: 0;
-        gap: 0.4rem;
-    }
-
-    @media (max-width: 420px) {
-        gap: 0.25rem;
+        display: none;
     }
 
     a {
@@ -163,21 +147,6 @@
         font-weight: 500;
         white-space: nowrap;
         transition: all var(--transition-speed);
-
-        @media (max-width: 768px) {
-            padding: 5px 9px;
-            font-size: 0.8rem;
-        }
-
-        @media (max-width: 420px) {
-            padding: 4px 7px;
-            font-size: 0.74rem;
-        }
-
-        @media (max-width: 380px) {
-            padding: 4px 5px;
-            font-size: 0.68rem;
-        }
 
         &:hover {
             background-color: var(--surface-hover);
@@ -201,14 +170,71 @@
     flex-shrink: 0;
 
     @media (max-width: 768px) {
-        gap: 0.4rem;
+        gap: 0.45rem;
+    }
+}
+
+/* --- MENÚ DESPLEGABLE MÓVIL --- */
+.header_mobile_menu {
+    display: none;
+
+    @media (max-width: 768px) {
+        position: fixed;
+        top: 3.75rem;
+        left: 0;
+        right: 0;
+        padding: 0.75rem 1rem 1rem;
+        background-color: var(--header-bg);
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.55rem;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate3d(0, -10px, 0);
+        transition:
+            opacity 0.22s ease,
+            transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 999;
+
+        &.is-open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate3d(0, 0, 0);
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 0.9rem;
+            border-radius: var(--radius-sm);
+            background-color: var(--surface-color);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all var(--transition-speed);
+
+            i {
+                font-size: 0.95rem;
+                color: var(--text-secondary);
+            }
+
+            &.active {
+                background-color: var(--surface-active);
+                border-color: var(--border-accent);
+                color: var(--accent-color);
+
+                i {
+                    color: var(--accent-color);
+                }
+            }
+        }
     }
 
     @media (max-width: 420px) {
-        gap: 0.28rem;
-    }
-
-    @media (max-width: 380px) {
-        gap: 0.2rem;
+        top: 3.5rem;
     }
 }

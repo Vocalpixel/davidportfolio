@@ -403,6 +403,23 @@
             text-overflow: ellipsis;
         }
 
+        .title_mobile {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            margin: 0 0.4rem;
+            padding: 0 0.55rem;
+
+            .title_full {
+                display: none;
+            }
+
+            .title_mobile {
+                display: inline;
+            }
+        }
+
         &:hover {
             border-color: var(--border-accent);
             color: var(--text-primary);
@@ -561,9 +578,21 @@
         transition: background-color 0.15s ease, color 0.15s ease;
 
         @media (max-width: 640px) {
-            padding: 0 0.55rem;
-            font-size: 0.74rem;
-            gap: 0.3rem;
+            flex: 1 1 0;
+            justify-content: center;
+            padding: 0 0.35rem;
+            font-size: 0.7rem;
+            gap: 0.28rem;
+            min-width: 0;
+
+            .tab_label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .tab_close_icon {
+                display: none;
+            }
         }
 
         .ts_badge {
