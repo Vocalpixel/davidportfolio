@@ -87,8 +87,8 @@
     /* Placeholders circulares progresivos sobre el perímetro del avatar */
     .avatar_orbit_badge {
         position: absolute;
-        width: 24%;
-        height: 24%;
+        width: 30%;
+        height: 30%;
         border-radius: var(--radius-full);
         background-color: var(--surface-active);
         border: 2px solid var(--border-color);
@@ -111,11 +111,11 @@
         z-index: 2;
 
         i {
-            font-size: 0.95rem;
+            font-size: 1.15rem;
             transition: color var(--transition-speed);
 
             @media (max-width: 768px) {
-                font-size: 0.72rem;
+                font-size: 0.85rem;
             }
         }
 
