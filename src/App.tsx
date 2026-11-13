@@ -24,6 +24,7 @@ interface LayoutMetrics {
   aboutStartScroll: number;
   aboutEndScroll: number;
   projectsStartScroll: number;
+  projectsEndScroll: number;
   contactStartScroll: number;
 }
 
@@ -35,10 +36,12 @@ function AppContent() {
 
   const [activeSection, setActiveSection] = useState<string>('#home');
   const [activeParagraph, setActiveParagraph] = useState<number>(0);
+  const [activeProject, setActiveProject] = useState<number>(0);
   const [heroContentOpacity, setHeroContentOpacity] = useState<number>(1);
 
   const activeSectionRef = useRef<string>('#home');
   const activeParagraphRef = useRef<number>(0);
+  const activeProjectRef = useRef<number>(0);
 
   const metricsRef = useRef<LayoutMetrics>({
     heroCenterX: 0,
@@ -50,7 +53,8 @@ function AppContent() {
     aboutStartScroll: 500,
     aboutEndScroll: 1500,
     projectsStartScroll: 2000,
-    contactStartScroll: 2600,
+    projectsEndScroll: 4000,
+    contactStartScroll: 4600,
   });
 
   // 1. Efecto de seguimiento del mouse (se desactiva al apagar los efectos)
@@ -196,6 +200,16 @@ function AppContent() {
       activeParagraphRef.current = nextParagraph;
       setActiveParagraph(nextParagraph);
     }
+
+    // Actualizar el slot activo del carrusel de Proyectos conforme avanzamos hacia abajo
+    const projectsSpan = Math.max(1, m.projectsEndScroll - m.projectsStartScroll);
+    const projectsProgress = Math.max(0, Math.min(1, (y - m.projectsStartScroll) / projectsSpan));
+    const nextProject = Math.min(4, Math.floor(projectsProgress * 5));
+
+    if (nextProject !== activeProjectRef.current) {
+      activeProjectRef.current = nextProject;
+      setActiveProject(nextProject);
+    }
   }, []);
 
   useEffect(() => {
@@ -239,15 +253,19 @@ function AppContent() {
       const aboutEndScroll = aboutStartScroll + Math.max(1, aboutSectionHeight - aboutStickyHeight);
 
       let projectsStartScroll = aboutEndScroll + aboutStickyHeight;
+      let projectsEndScroll = projectsStartScroll + aboutStickyHeight * 4;
+      const projectsSticky = document.getElementById('projects-sticky');
       if (projectsSection) {
         const projectsRect = projectsSection.getBoundingClientRect();
         projectsStartScroll = Math.max(aboutEndScroll + 100, projectsRect.top + scrollY - stickyTopPx);
+        const stickyH = projectsSticky ? projectsSticky.getBoundingClientRect().height : aboutStickyHeight;
+        projectsEndScroll = projectsStartScroll + Math.max(1, projectsRect.height - stickyH);
       }
 
-      let contactStartScroll = projectsStartScroll + aboutStickyHeight;
+      let contactStartScroll = projectsEndScroll + aboutStickyHeight;
       if (contactSection) {
         const contactRect = contactSection.getBoundingClientRect();
-        contactStartScroll = Math.max(projectsStartScroll + 100, contactRect.top + scrollY - stickyTopPx);
+        contactStartScroll = Math.max(projectsEndScroll + 100, contactRect.top + scrollY - stickyTopPx);
       }
 
       metricsRef.current = {
@@ -260,6 +278,7 @@ function AppContent() {
         aboutStartScroll,
         aboutEndScroll,
         projectsStartScroll,
+        projectsEndScroll,
         contactStartScroll,
       };
 
@@ -365,6 +384,16 @@ function AppContent() {
     });
   }, [effectsEnabled]);
 
+  const handleSelectProject = useCallback((index: number) => {
+    const m = metricsRef.current;
+    const span = m.projectsEndScroll - m.projectsStartScroll;
+    const targetTop = m.projectsStartScroll + (index / 4) * span;
+    window.scrollTo({
+      top: targetTop,
+      behavior: effectsEnabled ? 'smooth' : 'auto'
+    });
+  }, [effectsEnabled]);
+
   const showScrollTop = activeSection !== '#home';
 
   return (
@@ -391,7 +420,10 @@ function AppContent() {
           activeParagraph={activeParagraph}
           onSelectParagraph={handleSelectParagraph}
         />
-        <Projects />
+        <Projects
+          activeProject={activeProject}
+          onSelectProject={handleSelectProject}
+        />
         <Contact />
       </main>
 

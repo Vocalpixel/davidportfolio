@@ -84,10 +84,25 @@ const PROJECT_SLOTS: ProjectSlot[] = [
     }
 ];
 
-export function Projects() {
+interface ProjectsProps {
+    activeProject?: number;
+    onSelectProject?: (index: number) => void;
+}
+
+export function Projects({ activeProject, onSelectProject }: ProjectsProps) {
     const { lang } = useLanguage();
-    const [activeIndex, setActiveIndex] = useState<number>(0);
+    const [internalIndex, setInternalIndex] = useState<number>(0);
     const touchStartX = useRef<number | null>(null);
+
+    const activeIndex = activeProject ?? internalIndex;
+
+    const selectIndex = useCallback((nextIndex: number) => {
+        if (onSelectProject) {
+            onSelectProject(nextIndex);
+        } else {
+            setInternalIndex(nextIndex);
+        }
+    }, [onSelectProject]);
 
     const text = {
         es: {
@@ -111,12 +126,12 @@ export function Projects() {
     const total = PROJECT_SLOTS.length;
 
     const handlePrev = useCallback(() => {
-        setActiveIndex(prev => (prev - 1 + total) % total);
-    }, [total]);
+        selectIndex((activeIndex - 1 + total) % total);
+    }, [activeIndex, total, selectIndex]);
 
     const handleNext = useCallback(() => {
-        setActiveIndex(prev => (prev + 1) % total);
-    }, [total]);
+        selectIndex((activeIndex + 1) % total);
+    }, [activeIndex, total, selectIndex]);
 
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartX.current = e.touches[0].clientX;
@@ -137,6 +152,7 @@ export function Projects() {
 
     return (
         <section id="projects" className="projects_section">
+            <div id="projects-sticky" className="projects_sticky">
             <div className="projects_container">
                 <div className="projects_header">
                     <h2 className="projects_title">{text[lang].title}</h2>
@@ -253,7 +269,7 @@ export function Projects() {
                                 aria-selected={index === activeIndex}
                                 aria-label={`Slot ${slot.id}`}
                                 className={`projects_dot ${index === activeIndex ? 'active' : ''}`}
-                                onClick={() => setActiveIndex(index)}
+                                onClick={() => selectIndex(index)}
                             />
                         ))}
                     </div>
@@ -268,6 +284,7 @@ export function Projects() {
                         <i className="pi pi-chevron-right"></i>
                     </button>
                 </div>
+            </div>
             </div>
         </section>
     );

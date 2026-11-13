@@ -1,16 +1,43 @@
 .projects_section {
-    min-height: calc(100vh - 8rem);
-    min-height: calc(100dvh - 8rem);
+    position: relative;
     width: 100%;
+    /* 5 tramos de scroll equivalentes a los 5 proyectos del carrusel */
+    height: calc((100vh - 8rem) * 5);
+    height: calc((100dvh - 8rem) * 5);
+
+    @media (max-width: 768px) {
+        height: calc((100vh - 7.25rem) * 5);
+        height: calc((100dvh - 7.25rem) * 5);
+    }
+
+    @media (max-width: 420px) {
+        height: calc((100vh - 7rem) * 5);
+        height: calc((100dvh - 7rem) * 5);
+    }
+}
+
+.projects_sticky {
+    position: sticky;
+    top: 4rem;
+    width: 100%;
+    height: calc(100vh - 8rem);
+    height: calc(100dvh - 8rem);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
 
     @media (max-width: 768px) {
-        min-height: calc(100vh - 7.25rem);
-        min-height: calc(100dvh - 7.25rem);
-        padding: 1.5rem 0;
+        top: 3.75rem;
+        height: calc(100vh - 7.25rem);
+        height: calc(100dvh - 7.25rem);
+        padding: 1rem 0;
+    }
+
+    @media (max-width: 420px) {
+        top: 3.5rem;
+        height: calc(100vh - 7rem);
+        height: calc(100dvh - 7rem);
     }
 }
 
