@@ -1,0 +1,291 @@
+.projects_section {
+    min-height: calc(100vh - 8rem);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+
+    @media (max-width: 720px) {
+        min-height: calc(100vh - 7.5rem);
+        padding: 1.5rem 0;
+    }
+}
+
+.projects_container {
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+.projects_header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    .projects_title {
+        font-size: 2.15rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.5px;
+        margin: 0;
+        transition: color var(--transition-speed);
+
+        @media (max-width: 550px) {
+            font-size: 1.75rem;
+        }
+    }
+
+    .projects_subtitle {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin: 0;
+        transition: color var(--transition-speed);
+    }
+}
+
+/* --- CARRUSEL --- */
+.projects_carousel {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+
+    @media (max-width: 600px) {
+        gap: 0.6rem;
+    }
+}
+
+.projects_nav_btn {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-bottom: 1px solid transparent;
+    transition: all var(--transition-speed);
+    cursor: pointer;
+
+    i {
+        font-size: 15px;
+        transition: color var(--transition-speed), transform var(--transition-speed);
+    }
+
+    &:hover {
+        background-color: var(--surface-hover);
+        border-bottom: 1px solid var(--border-accent);
+        color: var(--accent-color);
+
+        i {
+            color: var(--accent-color);
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    @media (max-width: 550px) {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+.projects_viewport {
+    flex: 1;
+    width: 100%;
+    max-width: 720px;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.projects_track {
+    display: flex;
+    width: 100%;
+    will-change: transform;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects_slide {
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 0.25rem;
+}
+
+.projects_card_link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition:
+        border-color var(--transition-speed),
+        transform var(--transition-speed),
+        box-shadow var(--transition-speed);
+
+    &:hover {
+        border-color: var(--border-accent);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+
+        .projects_card_overlay {
+            opacity: 1;
+        }
+
+        .projects_img {
+            transform: scale(1.03);
+        }
+
+        .projects_card_title {
+            color: var(--accent-color);
+        }
+    }
+}
+
+.projects_image_slot {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 330px;
+    background-color: var(--surface-active);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+
+    .projects_img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .projects_placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1.5rem;
+        color: var(--text-secondary);
+
+        .projects_slot_badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--accent-color);
+        }
+
+        .projects_placeholder_icon {
+            font-size: 2.5rem;
+            opacity: 0.55;
+        }
+
+        .projects_placeholder_text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    }
+
+    .projects_card_overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(9, 9, 11, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity var(--transition-speed);
+
+        .projects_overlay_cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.15rem;
+            border-radius: var(--radius-sm);
+            background-color: var(--surface-color);
+            color: var(--text-primary);
+            border: 1px solid var(--border-accent);
+            font-size: 0.875rem;
+            font-weight: 600;
+
+            i {
+                font-size: 0.8rem;
+                color: var(--accent-color);
+            }
+        }
+    }
+}
+
+.projects_card_info {
+    padding: 1.15rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: left;
+
+    .projects_card_title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0;
+        transition: color var(--transition-speed);
+    }
+
+    .projects_card_desc {
+        font-size: 0.925rem;
+        color: var(--text-secondary);
+        margin: 0;
+    }
+}
+
+/* --- INDICADORES DE LOS 5 SLOTS --- */
+.projects_dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    .projects_dot {
+        width: 26px;
+        height: 6px;
+        border-radius: 999px;
+        background-color: var(--surface-color);
+        border: 1px solid var(--border-color);
+        cursor: pointer;
+        transition: all var(--transition-speed);
+
+        &:hover {
+            background-color: var(--surface-hover);
+        }
+
+        &.active {
+            width: 44px;
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+    }
+}
+
+[data-effects='off'] {
+    .projects_track {
+        transition: none !important;
+    }
+}

@@ -1,0 +1,114 @@
+.hero {
+    min-height: calc(100vh - 8rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    gap: 1.25rem;
+
+    @media (max-width: 720px) {
+        min-height: calc(100vh - 7.5rem);
+    }
+
+    /* --- ESPACIO RESERVADO ARRIBA DEL TEXTO PARA EL AVATAR --- */
+    .hero_avatar_wrapper {
+        position: relative;
+        width: 215px;
+        height: 215px;
+        min-width: 215px;
+        min-height: 215px;
+        flex-shrink: 0;
+        border-radius: var(--radius-full);
+        pointer-events: none;
+
+        @media (max-width: 550px) {
+            width: 165px;
+            height: 165px;
+            min-width: 165px;
+            min-height: 165px;
+        }
+    }
+
+    .hero_info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        transition: opacity 0.15s ease-out;
+    }
+
+    /* --- NOMBRE PRINCIPAL --- */
+    .hero_title {
+        font-size: 2.75rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.5px;
+        margin: 0;
+        transition: color var(--transition-speed);
+
+        @media (max-width: 550px) {
+            font-size: 2.15rem;
+        }
+    }
+
+    /* --- SUBTÍTULO / DESCRIPCIÓN (Distribuido en 2 filas) --- */
+    .hero_subtitle {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+        margin: 0;
+        transition: color var(--transition-speed);
+
+        span {
+            white-space: nowrap;
+        }
+
+        @media (max-width: 550px) {
+            font-size: 1.05rem;
+        }
+    }
+
+    /* --- BOTÓN COMENZAR CON FLECHA --- */
+    .hero_btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.75rem 1.75rem;
+        margin-top: 0.5rem;
+        background-color: var(--surface-color);
+        color: var(--text-primary);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color);
+        border-bottom: 2px solid transparent;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+
+        .hero_btn_icon {
+            font-size: 0.85rem;
+            transition: transform var(--transition-speed);
+        }
+
+        &:hover {
+            background-color: var(--surface-hover);
+            border-bottom: 2px solid var(--border-accent);
+            color: var(--accent-color);
+
+            .hero_btn_icon {
+                transform: translateY(3px);
+                color: var(--accent-color);
+            }
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}

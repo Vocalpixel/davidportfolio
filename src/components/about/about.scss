@@ -1,0 +1,780 @@
+.about_section {
+    position: relative;
+    width: 100%;
+    /* 3 tramos de scroll equivalentes a los 3 bloques de texto */
+    height: calc((100vh - 8rem) * 3);
+
+    @media (max-width: 720px) {
+        height: calc((100vh - 7.5rem) * 3);
+    }
+}
+
+.about_sticky {
+    position: sticky;
+    top: 4rem;
+    width: 100%;
+    /* Altura total de la pantalla menos el Header (4rem) y el Footer (4rem) */
+    height: calc(100vh - 8rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 720px) {
+        height: calc(100vh - 7.5rem);
+    }
+}
+
+.about_container {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3.25rem;
+    padding: 1rem 0;
+    transition: max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1), gap 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &.ide-maximized {
+        max-width: 1180px;
+        gap: 2.5rem;
+    }
+
+    @media (max-width: 760px) {
+        gap: 1.75rem;
+    }
+
+    @media (max-width: 550px) {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 1.15rem;
+    }
+}
+
+/* --- COLUMNA IZQUIERDA (ANCLA DEL AVATAR EN MEDIO DE LA ALTURA) --- */
+.about_left {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .about_avatar_slot {
+        width: 240px;
+        height: 240px;
+        min-width: 240px;
+        min-height: 240px;
+        border-radius: var(--radius-full);
+        pointer-events: none;
+
+        @media (max-width: 760px) {
+            width: 185px;
+            height: 185px;
+            min-width: 185px;
+            min-height: 185px;
+        }
+
+        @media (max-width: 550px) {
+            width: 135px;
+            height: 135px;
+            min-width: 135px;
+            min-height: 135px;
+        }
+    }
+}
+
+/* --- COLUMNA DERECHA (CONTENEDOR VISUAL STUDIO CODE) --- */
+.about_right {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* --- BARRA SUPERIOR PARA ALTERNAR ENTRE WINDOWS 11 Y MACOS --- */
+.ide_variant_switcher {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0 0.15rem;
+
+    .ide_variant_current {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+
+        i {
+            font-size: 0.88rem;
+            color: var(--accent-color);
+        }
+    }
+
+    .ide_variant_btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.38rem 0.9rem;
+        border-radius: var(--radius-sm);
+        background-color: var(--surface-color);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-accent);
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+
+        i {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            transition: transform 0.35s ease;
+        }
+
+        &:hover {
+            background-color: var(--surface-hover);
+            color: var(--accent-color);
+
+            i {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+/* =========================================================================
+   VENTANA VISUAL STUDIO CODE (os-win11, os-macos e is-maximized)
+   ========================================================================= */
+.vscode_window {
+    --editor-line-height: 28px;
+    width: 100%;
+    background-color: var(--surface-active);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transform-origin: center center;
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color var(--transition-speed),
+        border-color var(--transition-speed);
+
+    @media (max-width: 720px) {
+        --editor-line-height: 25px;
+    }
+
+    &.os-win11 {
+        border-radius: 8px;
+    }
+
+    &.os-macos {
+        border-radius: 11px;
+    }
+
+    /* Estado Maximizado (más grande y espacioso sin exagerar) */
+    &.is-maximized {
+        --editor-line-height: 31px;
+        transform: scale(1.035);
+        border-color: var(--border-accent);
+        box-shadow: 0 24px 52px rgba(0, 0, 0, 0.45);
+
+        @media (max-width: 720px) {
+            --editor-line-height: 27px;
+        }
+
+        .ide_body {
+            padding: 1.55rem 1.85rem 1.55rem 0;
+
+            @media (max-width: 550px) {
+                padding: 1.1rem 1rem 1.1rem 0;
+            }
+        }
+
+        .about_paragraph {
+            font-size: 1.12rem;
+        }
+
+        .ide_code_line,
+        .ide_gutter .ide_gutter_num {
+            font-size: 0.94rem;
+        }
+    }
+}
+
+/* --- 1. TITLEBAR DE VS CODE --- */
+.vscode_titlebar {
+    height: 36px;
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.85rem;
+    user-select: none;
+
+    /* --- BOTONES SEMÁFORO INTERACTIVOS DE MACOS --- */
+    .macos_traffic_lights {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        padding: 4px 2px;
+
+        .macos_btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            position: relative;
+            cursor: pointer;
+            transition: filter 0.12s ease, transform 0.12s ease;
+
+            .macos_icon {
+                width: 10px;
+                height: 10px;
+                opacity: 0;
+                transition: opacity 0.12s ease;
+            }
+
+            &.close {
+                background-color: #ff5f56;
+                border: 1px solid #e0443e;
+                color: #4d0000;
+            }
+
+            &.minimize {
+                background-color: #ffbd2e;
+                border: 1px solid #dea123;
+                color: #995700;
+            }
+
+            &.fullscreen {
+                background-color: #27c93f;
+                border: 1px solid #1aab29;
+                color: #006500;
+            }
+
+            &:active {
+                filter: brightness(0.82);
+            }
+        }
+
+        /* Comportamiento nativo macOS: al pasar por encima de cualquiera, se muestran los 3 íconos */
+        &:hover .macos_btn .macos_icon {
+            opacity: 1;
+        }
+    }
+
+    /* --- IZQUIERDA EN WINDOWS 11 (LOGO VS CODE + MENÚ) --- */
+    .win11_titlebar_left {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex-shrink: 0;
+
+        .vscode_logo {
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        .vscode_menubar {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+
+            span {
+                padding: 3px 7px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.12s ease, color 0.12s ease;
+
+                &:hover {
+                    background-color: var(--surface-hover);
+                    color: var(--text-primary);
+                }
+            }
+
+            @media (max-width: 760px) {
+                display: none;
+            }
+        }
+    }
+
+    /* --- CENTRO: BARRA DE COMANDOS / TÍTULO DE VS CODE --- */
+    .vscode_title_center {
+        flex: 1;
+        max-width: 380px;
+        margin: 0 0.75rem;
+        height: 24px;
+        border-radius: 6px;
+        background-color: var(--surface-active);
+        border: 1px solid var(--border-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0 0.75rem;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        transition: border-color 0.15s ease, color 0.15s ease;
+
+        .vscode_search_icon {
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &:hover {
+            border-color: var(--border-accent);
+            color: var(--text-primary);
+        }
+    }
+
+    .macos_titlebar_spacer {
+        width: 52px;
+        flex-shrink: 0;
+    }
+
+    /* --- BOTONES DE VENTANA NATIVOS DE WINDOWS 11 A LA DERECHA --- */
+    .win11_window_controls {
+        display: flex;
+        align-items: stretch;
+        height: 100%;
+        flex-shrink: 0;
+
+        .win11_ctrl_btn {
+            width: 46px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.12s ease, color 0.12s ease;
+
+            &.minimize:hover,
+            &.maximize:hover {
+                background-color: rgba(255, 255, 255, 0.09);
+                color: var(--text-primary);
+            }
+
+            &.minimize:active,
+            &.maximize:active {
+                background-color: rgba(255, 255, 255, 0.04);
+            }
+
+            /* Botón cerrar oficial de Windows 11 (#e81123 con X blanca) */
+            &.close:hover {
+                background-color: #e81123;
+                color: #ffffff;
+            }
+
+            &.close:active {
+                background-color: #c42b1c;
+                color: #ffffff;
+            }
+
+            @media (max-width: 550px) {
+                width: 36px;
+            }
+        }
+    }
+}
+
+[data-theme='light'] .vscode_titlebar .win11_window_controls .win11_ctrl_btn {
+    &.minimize:hover,
+    &.maximize:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+    }
+}
+
+/* --- 2. WORKBENCH DE VS CODE (ACTIVITY BAR + ÁREA DE EDITOR) --- */
+.vscode_workbench {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+.vscode_activitybar {
+    width: 42px;
+    background-color: var(--surface-color);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.45rem 0;
+    gap: 0.3rem;
+    flex-shrink: 0;
+
+    @media (max-width: 550px) {
+        display: none;
+    }
+
+    .activity_icon {
+        width: 100%;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        opacity: 0.6;
+        border-left: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        i {
+            font-size: 1rem;
+        }
+
+        &:hover {
+            opacity: 1;
+            color: var(--text-primary);
+        }
+
+        &.active {
+            opacity: 1;
+            color: var(--text-primary);
+            border-left-color: var(--border-accent);
+        }
+    }
+}
+
+.vscode_editor_area {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- BARRA DE PESTAÑAS DE VS CODE --- */
+.vscode_tabs_bar {
+    display: flex;
+    align-items: stretch;
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    height: 38px;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .vscode_tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0 0.9rem;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        background-color: var(--surface-color);
+        border-top: 2px solid transparent;
+        border-right: 1px solid var(--border-color);
+        white-space: nowrap;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease;
+
+        .ts_badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #3178c6;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            letter-spacing: -0.3px;
+        }
+
+        .tab_close_icon {
+            font-size: 0.95rem;
+            line-height: 1;
+            width: 16px;
+            height: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.12s ease, background-color 0.12s ease;
+
+            &:hover {
+                background-color: var(--surface-hover);
+            }
+        }
+
+        &:hover {
+            color: var(--text-primary);
+            background-color: var(--surface-hover);
+
+            .tab_close_icon {
+                opacity: 0.75;
+            }
+        }
+
+        &.active {
+            color: var(--text-primary);
+            background-color: var(--surface-active);
+            border-top-color: #007acc;
+
+            .tab_close_icon {
+                opacity: 0.85;
+            }
+        }
+    }
+}
+
+/* --- BREADCRUMBS DE VS CODE --- */
+.vscode_breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    background-color: var(--surface-active);
+
+    i {
+        font-size: 0.7rem;
+        opacity: 0.6;
+    }
+
+    .active_crumb {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+}
+
+/* --- CUERPO DEL EDITOR (GUTTER + CÓDIGO ALINEADOS LÍNEA POR LÍNEA) --- */
+.ide_body {
+    display: flex;
+    align-items: flex-start;
+    padding: 1.25rem 1.45rem 1.25rem 0;
+    transition: padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+    @media (max-width: 550px) {
+        padding: 0.85rem 0.9rem 0.85rem 0;
+    }
+
+    .ide_gutter {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: 0 0.85rem;
+        min-width: 2.65rem;
+        border-right: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        opacity: 0.45;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        user-select: none;
+
+        .ide_gutter_num {
+            display: flex;
+            align-items: center;
+            height: var(--editor-line-height);
+            line-height: var(--editor-line-height);
+            font-size: 0.82rem;
+            transition: font-size 0.3s ease;
+        }
+    }
+
+    .ide_code_content {
+        flex: 1;
+        min-width: 0;
+        height: calc(7 * var(--editor-line-height));
+        padding-left: 1.1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 0;
+    }
+}
+
+.ide_code_line {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9rem;
+    height: var(--editor-line-height);
+    line-height: var(--editor-line-height);
+    display: flex;
+    align-items: center;
+    white-space: pre;
+    transition: font-size 0.3s ease;
+
+    .token_comment {
+        color: #6a9955;
+        font-style: italic;
+    }
+
+    .token_keyword {
+        color: #569cd6;
+        font-weight: 600;
+    }
+
+    .token_variable {
+        color: #4fc1ff;
+        font-weight: 600;
+    }
+
+    .token_operator {
+        color: var(--text-secondary);
+    }
+
+    .token_string {
+        color: #ce9178;
+        font-weight: 600;
+    }
+}
+
+/* --- ESCENARIO DE LOS 3 PÁRRAFOS PROGRESIVOS --- */
+.about_paragraphs_stage {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding-left: 0.95rem;
+    border-left: 2px solid var(--border-subtle);
+    transition: height 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+    .about_paragraph {
+        grid-area: 1 / 1;
+        font-size: 1.03rem;
+        line-height: var(--editor-line-height);
+        color: var(--text-primary);
+        margin: 0;
+        transition:
+            opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            font-size 0.3s ease,
+            color var(--transition-speed);
+
+        @media (max-width: 720px) {
+            font-size: 0.94rem;
+        }
+
+        &.is-active {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            pointer-events: auto;
+        }
+
+        &.is-hidden-above {
+            opacity: 0;
+            transform: translate3d(0, -24px, 0);
+            pointer-events: none;
+        }
+
+        &.is-hidden-below {
+            opacity: 0;
+            transform: translate3d(0, 24px, 0);
+            pointer-events: none;
+        }
+    }
+}
+
+.ide_cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.05em;
+    background-color: var(--accent-color);
+    margin-left: 4px;
+    vertical-align: text-bottom;
+    animation: cursorBlink 1s steps(2, start) infinite;
+}
+
+@keyframes cursorBlink {
+    to {
+        visibility: hidden;
+    }
+}
+
+/* --- 3. STATUS BAR OFICIAL DE VS CODE --- */
+.vscode_statusbar {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 0.85rem;
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    user-select: none;
+
+    .status_left,
+    .status_right {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        gap: 0.85rem;
+    }
+
+    .status_remote {
+        height: 100%;
+        padding: 0 0.65rem;
+        background-color: #007acc;
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+            font-size: 0.74rem;
+        }
+    }
+
+    .status_item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--text-primary);
+        }
+
+        &.accent {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        &.hide_mobile {
+            @media (max-width: 550px) {
+                display: none;
+            }
+        }
+
+        i {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+[data-effects='off'] {
+    .ide_cursor {
+        animation: none !important;
+    }
+}

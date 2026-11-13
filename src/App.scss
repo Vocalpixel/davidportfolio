@@ -1,0 +1,163 @@
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* --- TRAMADO DE PUNTOS ACELERADO 100% POR GPU (ZERO REPAINTS) --- */
+.bg {
+    position: fixed;
+    inset: -40px;
+    z-index: -1;
+    pointer-events: none;
+    backface-visibility: hidden;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Capa interna 100% opaca con animación diagonal mediante transform: translate3d */
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -75px;
+        background-color: var(--bg-color);
+        background-image:
+            linear-gradient(var(--dots-mask), var(--dots-mask)),
+            url('./assets/background.png');
+        background-repeat: repeat;
+        background-size: 75px 75px;
+        backface-visibility: hidden;
+        will-change: transform;
+        animation: moveDotsGPU 6s linear infinite;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* --- AVATAR COMPARTIDO QUE TRANSICIONA ENTRE SECCIONES (HERO -> SOBRE MÍ) --- */
+.floating_avatar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 215px;
+    height: 215px;
+    z-index: 50;
+    pointer-events: auto;
+    transform-origin: center center;
+    will-change: transform;
+    backface-visibility: hidden;
+
+    .floating_avatar_img {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--radius-full);
+        object-fit: cover;
+        border: 3px solid var(--border-color);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        transition: transform var(--transition-speed), border-color var(--transition-speed);
+
+        &:hover {
+            transform: scale(1.03);
+            border-color: var(--accent-color);
+        }
+    }
+}
+
+/* --- BOTÓN FLOTANTE ESQUINA INFERIOR DERECHA (VOLVER A HOME) --- */
+.scroll_top_btn {
+    position: fixed;
+    right: 3rem;
+    bottom: 5rem;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-full);
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-bottom: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(0, 12px, 0) scale(0.9);
+    transition:
+        opacity var(--transition-speed),
+        transform var(--transition-speed),
+        background-color var(--transition-speed),
+        border-color var(--transition-speed),
+        color var(--transition-speed);
+
+    i {
+        font-size: 15px;
+        transition: color var(--transition-speed), transform var(--transition-speed);
+    }
+
+    &.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    &:hover {
+        background-color: var(--surface-hover);
+        border-bottom: 1px solid var(--border-accent);
+        color: var(--accent-color);
+
+        i {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    @media (max-width: 720px) {
+        right: 1.25rem;
+        bottom: 4.5rem;
+    }
+}
+
+/* --- ESTADO CON EFECTOS DESACTIVADOS --- */
+[data-effects='off'] {
+    .bg {
+        transition: none !important;
+    }
+
+    /* Pausar animación diagonal en su mismo pipeline de GPU sin destruir la capa */
+    .bg::before {
+        animation-play-state: paused !important;
+    }
+
+    /* Apagar blur al 100% (cero consumo GPU) y aplicar fondo opaco en Header y Footer */
+    .header,
+    .footer {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: var(--header-bg) !important;
+    }
+}
+
+/* Animación de desplazamiento 100% en el compositor de la GPU */
+@keyframes moveDotsGPU {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(75px, 75px, 0);
+    }
+}
