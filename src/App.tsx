@@ -213,7 +213,8 @@ function AppContent() {
 
       const scrollY = window.scrollY;
       const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-      const stickyTopPx = 4 * rootFontSize; // 4rem del Header
+      const headerEl = document.querySelector('.header');
+      const stickyTopPx = headerEl ? headerEl.getBoundingClientRect().height : 4 * rootFontSize;
 
       const heroRect = heroSlot.getBoundingClientRect();
       const heroDocTop = heroRect.top + scrollY;
@@ -324,7 +325,8 @@ function AppContent() {
     const el = document.querySelector(sectionId);
     if (el) {
       const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-      const stickyTopPx = 4 * rootFontSize;
+      const headerEl = document.querySelector('.header');
+      const stickyTopPx = headerEl ? headerEl.getBoundingClientRect().height : 4 * rootFontSize;
       const targetTop = Math.max(0, el.getBoundingClientRect().top + window.scrollY - stickyTopPx);
       window.scrollTo({ top: targetTop, behavior });
     }

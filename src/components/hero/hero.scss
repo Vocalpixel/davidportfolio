@@ -1,5 +1,6 @@
 .hero {
     min-height: calc(100vh - 8rem);
+    min-height: calc(100dvh - 8rem);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,8 +9,11 @@
     padding: 2rem 1rem;
     gap: 1.25rem;
 
-    @media (max-width: 720px) {
-        min-height: calc(100vh - 7.5rem);
+    @media (max-width: 768px) {
+        min-height: calc(100vh - 7.25rem);
+        min-height: calc(100dvh - 7.25rem);
+        padding: 1.5rem 0.5rem;
+        gap: 1rem;
     }
 
     /* --- ESPACIO RESERVADO ARRIBA DEL TEXTO PARA EL AVATAR --- */
@@ -23,11 +27,18 @@
         border-radius: var(--radius-full);
         pointer-events: none;
 
-        @media (max-width: 550px) {
-            width: 165px;
-            height: 165px;
-            min-width: 165px;
-            min-height: 165px;
+        @media (max-width: 640px) {
+            width: 155px;
+            height: 155px;
+            min-width: 155px;
+            min-height: 155px;
+        }
+
+        @media (max-width: 380px) {
+            width: 135px;
+            height: 135px;
+            min-width: 135px;
+            min-height: 135px;
         }
     }
 
@@ -36,7 +47,13 @@
         flex-direction: column;
         align-items: center;
         gap: 1.25rem;
+        width: 100%;
+        max-width: 540px;
         transition: opacity 0.15s ease-out;
+
+        @media (max-width: 640px) {
+            gap: 0.9rem;
+        }
     }
 
     /* --- NOMBRE PRINCIPAL --- */
@@ -48,8 +65,12 @@
         margin: 0;
         transition: color var(--transition-speed);
 
-        @media (max-width: 550px) {
-            font-size: 2.15rem;
+        @media (max-width: 640px) {
+            font-size: 2rem;
+        }
+
+        @media (max-width: 380px) {
+            font-size: 1.75rem;
         }
     }
 
@@ -67,10 +88,15 @@
 
         span {
             white-space: nowrap;
+
+            @media (max-width: 640px) {
+                white-space: normal;
+            }
         }
 
-        @media (max-width: 550px) {
-            font-size: 1.05rem;
+        @media (max-width: 640px) {
+            font-size: 0.98rem;
+            padding: 0 0.5rem;
         }
     }
 

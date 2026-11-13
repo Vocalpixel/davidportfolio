@@ -9,12 +9,14 @@ interface AboutProps {
 
 type OsTheme = 'win11' | 'macos';
 
-const FIXED_LINE_COUNT = 7;
+const DESKTOP_LINE_COUNT = 7;
+const MOBILE_LINE_COUNT = 9;
 
 export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
     const { lang } = useLanguage();
     const [osTheme, setOsTheme] = useState<OsTheme>('win11');
     const [isMaximized, setIsMaximized] = useState<boolean>(false);
+    const [fixedLineCount, setFixedLineCount] = useState<number>(DESKTOP_LINE_COUNT);
     const [closingLineNumber, setClosingLineNumber] = useState<number>(6);
     const [stageHeightPx, setStageHeightPx] = useState<number | undefined>(undefined);
 
@@ -71,11 +73,16 @@ export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
         const activeP = paragraphRefs.current[activeParagraph];
         if (!activeP) return;
 
-        const computed = getComputedStyle(activeP);
-        const lineHeight = parseFloat(computed.lineHeight) || 28;
-        const pHeight = activeP.scrollHeight;
-        const pLines = Math.max(1, Math.min(4, Math.round(pHeight / lineHeight)));
+        const isMobile = window.innerWidth <= 640;
+        const targetFixedLines = isMobile ? MOBILE_LINE_COUNT : DESKTOP_LINE_COUNT;
+        const maxParagraphLines = targetFixedLines - 3;
 
+        const computed = getComputedStyle(activeP);
+        const lineHeight = parseFloat(computed.lineHeight) || (isMobile ? 22 : 28);
+        const pHeight = activeP.scrollHeight;
+        const pLines = Math.max(1, Math.min(maxParagraphLines, Math.round(pHeight / lineHeight)));
+
+        setFixedLineCount(targetFixedLines);
         // 1 línea para "// Sobre mí" + 1 línea para "export const..." + pLines del párrafo + 1 línea para "`;"
         setStageHeightPx(pLines * lineHeight);
         setClosingLineNumber(2 + pLines + 1);
@@ -288,10 +295,13 @@ export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
                                         <span className="active_crumb">{activeTabName}</span>
                                     </div>
 
-                                    {/* Lienzo de código con 7 líneas fijas siempre sin saltos de altura */}
-                                    <div className="ide_body">
+                                    {/* Lienzo de código con líneas fijas siempre sin saltos de altura */}
+                                    <div
+                                        className="ide_body"
+                                        style={{ '--ide-fixed-lines': fixedLineCount } as React.CSSProperties}
+                                    >
                                         <div className="ide_gutter" aria-hidden="true">
-                                            {Array.from({ length: FIXED_LINE_COUNT }, (_, idx) => (
+                                            {Array.from({ length: fixedLineCount }, (_, idx) => (
                                                 <span key={idx + 1} className="ide_gutter_num">
                                                     {idx + 1}
                                                 </span>

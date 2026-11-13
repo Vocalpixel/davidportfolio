@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import './projects.scss';
 
@@ -87,6 +87,7 @@ const PROJECT_SLOTS: ProjectSlot[] = [
 export function Projects() {
     const { lang } = useLanguage();
     const [activeIndex, setActiveIndex] = useState<number>(0);
+    const touchStartX = useRef<number | null>(null);
 
     const text = {
         es: {
@@ -117,6 +118,23 @@ export function Projects() {
         setActiveIndex(prev => (prev + 1) % total);
     }, [total]);
 
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (touchStartX.current === null) return;
+        const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+        if (Math.abs(deltaX) > 40) {
+            if (deltaX < 0) {
+                handleNext();
+            } else {
+                handlePrev();
+            }
+        }
+        touchStartX.current = null;
+    };
+
     return (
         <section id="projects" className="projects_section">
             <div className="projects_container">
@@ -137,8 +155,12 @@ export function Projects() {
                         <i className="pi pi-chevron-left"></i>
                     </button>
 
-                    {/* Viewport del Carrusel con 5 Slots */}
-                    <div className="projects_viewport">
+                    {/* Viewport del Carrusel con 5 Slots (soporta swipe táctil en móvil) */}
+                    <div
+                        className="projects_viewport"
+                        onTouchStart={handleTouchStart}
+                        onTouchEnd={handleTouchEnd}
+                    >
                         <div
                             className="projects_track"
                             style={{
