@@ -395,6 +395,7 @@ function AppContent() {
   }, [effectsEnabled]);
 
   const showScrollTop = activeSection !== '#home';
+  const showAboutBadges = activeSection === '#about';
 
   return (
     <div className="app">
@@ -408,6 +409,35 @@ function AppContent() {
           alt="David Bernal"
           className="floating_avatar_img"
         />
+
+        {/* 3 Placeholders circulares progresivos sobre el borde del avatar (dev, 3d, extra) */}
+        <button
+          type="button"
+          className={`avatar_orbit_badge pos-top-right ${showAboutBadges && activeParagraph >= 0 ? 'is-visible' : ''} ${activeParagraph === 0 ? 'is-current' : ''}`}
+          onClick={() => handleSelectParagraph(0)}
+          aria-label="dev"
+          title="dev"
+        >
+          <i className="pi pi-code" />
+        </button>
+        <button
+          type="button"
+          className={`avatar_orbit_badge pos-mid-left ${showAboutBadges && activeParagraph >= 1 ? 'is-visible' : ''} ${activeParagraph === 1 ? 'is-current' : ''}`}
+          onClick={() => handleSelectParagraph(1)}
+          aria-label="3d"
+          title="3d"
+        >
+          <i className="pi pi-box" />
+        </button>
+        <button
+          type="button"
+          className={`avatar_orbit_badge pos-bottom-right ${showAboutBadges && activeParagraph >= 2 ? 'is-visible' : ''} ${activeParagraph === 2 ? 'is-current' : ''}`}
+          onClick={() => handleSelectParagraph(2)}
+          aria-label="extra"
+          title="extra"
+        >
+          <i className="pi pi-star" />
+        </button>
       </div>
 
       <Header activeSection={activeSection} onNavigate={handleNavigate} />

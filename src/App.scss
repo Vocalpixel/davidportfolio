@@ -83,6 +83,77 @@
             border-color: var(--accent-color);
         }
     }
+
+    /* Placeholders circulares progresivos sobre el perímetro del avatar */
+    .avatar_orbit_badge {
+        position: absolute;
+        width: 24%;
+        height: 24%;
+        border-radius: var(--radius-full);
+        background-color: var(--surface-active);
+        border: 2px solid var(--border-color);
+        color: var(--text-secondary);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(0.45);
+        transition:
+            opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+            border-color var(--transition-speed),
+            color var(--transition-speed),
+            background-color var(--transition-speed);
+        z-index: 2;
+
+        i {
+            font-size: 0.95rem;
+            transition: color var(--transition-speed);
+
+            @media (max-width: 768px) {
+                font-size: 0.72rem;
+            }
+        }
+
+        /* 1. Arriba a la derecha sobre el borde del círculo (45° arriba-derecha) */
+        &.pos-top-right {
+            left: 85.35%;
+            top: 14.65%;
+        }
+
+        /* 2. En medio a la izquierda sobre el borde del círculo (180°) */
+        &.pos-mid-left {
+            left: 0%;
+            top: 50%;
+        }
+
+        /* 3. Abajo a la derecha sobre el borde del círculo (45° abajo-derecha) */
+        &.pos-bottom-right {
+            left: 85.35%;
+            top: 85.35%;
+        }
+
+        &.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        &.is-current,
+        &:hover {
+            border-color: var(--border-accent);
+            color: var(--accent-color);
+            background-color: var(--surface-hover);
+        }
+    }
+}
+
+[data-effects='off'] .floating_avatar .avatar_orbit_badge {
+    transition: none !important;
 }
 
 /* --- BOTÓN FLOTANTE ESQUINA INFERIOR DERECHA (VOLVER A HOME) --- */
