@@ -296,16 +296,39 @@ function AppContent() {
     if (aboutSlotEl) resizeObserver.observe(aboutSlotEl);
     if (projectsSectionEl) resizeObserver.observe(projectsSectionEl);
     if (contactSectionEl) resizeObserver.observe(contactSectionEl);
+    // Cambios de layout que mueven los slots sin cambiar su tamaño (carga de fuentes, barra del navegador móvil, etc.)
+    resizeObserver.observe(document.body);
+    const heroInfoEl = document.querySelector('.hero_info');
+    if (heroInfoEl) resizeObserver.observe(heroInfoEl);
+
+    let resizeRafId: number | null = null;
+    const handleResize = () => {
+      measureLayout();
+      if (resizeRafId !== null) cancelAnimationFrame(resizeRafId);
+      resizeRafId = requestAnimationFrame(() => {
+        resizeRafId = null;
+        measureLayout();
+      });
+    };
+
+    document.fonts?.ready.then(() => measureLayout());
+    window.addEventListener('load', measureLayout);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', measureLayout, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.visualViewport?.addEventListener('resize', handleResize, { passive: true });
 
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', measureLayout);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('load', measureLayout);
+      window.visualViewport?.removeEventListener('resize', handleResize);
       if (scrollRafId !== null) {
         cancelAnimationFrame(scrollRafId);
+      }
+      if (resizeRafId !== null) {
+        cancelAnimationFrame(resizeRafId);
       }
     };
   }, [updateAvatarAndState]);

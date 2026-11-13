@@ -74,11 +74,19 @@ export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
         if (!activeP) return;
 
         const isMobile = window.innerWidth <= 640;
-        const targetFixedLines = isMobile ? MOBILE_LINE_COUNT : DESKTOP_LINE_COUNT;
+        const computed = getComputedStyle(activeP);
+        const lineHeight = parseFloat(computed.lineHeight) || (isMobile ? 21 : 28);
+
+        // Líneas que ocupa el párrafo más largo: así todas las pestañas comparten el mismo
+        // número fijo de líneas (sin saltos de altura) y ningún texto se recorta.
+        const longestLines = paragraphRefs.current.reduce((max, el) => {
+            if (!el) return max;
+            return Math.max(max, Math.round(el.scrollHeight / lineHeight));
+        }, 1);
+        const minFixed = isMobile ? MOBILE_LINE_COUNT : DESKTOP_LINE_COUNT;
+        const targetFixedLines = Math.max(minFixed, longestLines + 3);
         const maxParagraphLines = targetFixedLines - 3;
 
-        const computed = getComputedStyle(activeP);
-        const lineHeight = parseFloat(computed.lineHeight) || (isMobile ? 22 : 28);
         const pHeight = activeP.scrollHeight;
         const pLines = Math.max(1, Math.min(maxParagraphLines, Math.round(pHeight / lineHeight)));
 

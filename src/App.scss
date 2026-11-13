@@ -2,6 +2,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    /* Red de seguridad: nunca permitir scroll horizontal en móvil (clip no rompe position: sticky) */
+    overflow-x: clip;
 
     main {
         flex: 1;

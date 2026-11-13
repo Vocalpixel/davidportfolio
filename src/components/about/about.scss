@@ -698,8 +698,8 @@
     font-size: 0.9rem;
     height: var(--editor-line-height);
     line-height: var(--editor-line-height);
-    display: flex;
-    align-items: center;
+    display: block;
+    flex-shrink: 0;
     white-space: pre;
     overflow: hidden;
     text-overflow: ellipsis;
