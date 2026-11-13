@@ -174,7 +174,23 @@
     }
 }
 
-/* --- MENÚ DESPLEGABLE MÓVIL --- */
+/* --- BACKDROP Y MENÚ DESPLEGABLE MÓVIL --- */
+.header_mobile_backdrop {
+    display: none;
+
+    @media (max-width: 768px) {
+        display: block;
+        position: fixed;
+        inset: 3.75rem 0 0 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 998;
+    }
+
+    @media (max-width: 420px) {
+        inset: 3.5rem 0 0 0;
+    }
+}
+
 .header_mobile_menu {
     display: none;
 
@@ -208,6 +224,7 @@
             display: flex;
             align-items: center;
             gap: 0.6rem;
+            min-height: 44px;
             padding: 0.75rem 0.9rem;
             border-radius: var(--radius-sm);
             background-color: var(--surface-color);

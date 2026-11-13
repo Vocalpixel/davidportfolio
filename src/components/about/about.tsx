@@ -36,6 +36,7 @@ export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
             activityTitles: ['Explorador', 'Buscar', 'Control de código fuente', 'Extensiones'],
             breadcrumbFolder: 'sobre-mi',
             tabs: ['01_desarrollo.ts', '02_modelado3d.ts', '03_intereses.ts'],
+            mobileTabs: ['dev.ts', '3d.ts', 'extra.ts'],
             varNames: ['desarrolladorFullstack', 'creativo3D', 'interesesPersonales'],
             lineColLabel: `Lín ${closingLineNumber}, Col 3`,
             paragraphs: [
@@ -56,6 +57,7 @@ export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
             activityTitles: ['Explorer', 'Search', 'Source Control', 'Extensions'],
             breadcrumbFolder: 'about',
             tabs: ['01_stack.ts', '02_blender3d.ts', '03_hobbies.ts'],
+            mobileTabs: ['stack.ts', '3d.ts', 'more.ts'],
             varNames: ['fullstackDev', 'creative3D', 'personalInterests'],
             lineColLabel: `Ln ${closingLineNumber}, Col 3`,
             paragraphs: [
@@ -289,7 +291,8 @@ export function About({ activeParagraph, onSelectParagraph }: AboutProps) {
                                                 onClick={() => onSelectParagraph(index)}
                                             >
                                                 <span className="ts_badge">TS</span>
-                                                <span className="tab_label">{tabName}</span>
+                                                <span className="tab_label tab_label_desktop">{tabName}</span>
+                                                <span className="tab_label tab_label_mobile">{currentContent.mobileTabs[index]}</span>
                                                 <span className="tab_close_icon" aria-hidden="true">×</span>
                                             </button>
                                         ))}

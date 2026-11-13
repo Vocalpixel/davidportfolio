@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useEffects } from '../../context/EffectsContext';
@@ -15,6 +15,22 @@ export function Header({ activeSection, onNavigate }: HeaderProps){
     const { effectsEnabled, toggleEffects } = useEffects();
     const [internalNav, setInternalNav] = useState('#home');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (!mobileMenuOpen) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setMobileMenuOpen(false);
+        };
+        const handleScroll = () => setMobileMenuOpen(false);
+
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [mobileMenuOpen]);
 
     const activeNav = activeSection ?? internalNav;
 
@@ -135,6 +151,15 @@ export function Header({ activeSection, onNavigate }: HeaderProps){
                     <i className={`pi ${mobileMenuOpen ? 'pi-times' : 'pi-bars'}`}></i>
                 </button>
             </div>
+
+            {/* Backdrop táctil para cerrar el menú al tocar fuera */}
+            {mobileMenuOpen && (
+                <div
+                    className="header_mobile_backdrop"
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-hidden="true"
+                />
+            )}
 
             {/* Menú desplegable adaptado a móvil */}
             <nav className={`header_mobile_menu ${mobileMenuOpen ? 'is-open' : ''}`} aria-label="Mobile navigation">
