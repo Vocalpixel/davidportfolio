@@ -1,5 +1,9 @@
 import { useState, useCallback, useRef } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import ankhorPreview from '../../assets/projects/ankhor-preview.png';
+import xenithPreview from '../../assets/projects/xenith-preview.png';
+import diariventPreview from '../../assets/projects/diarivent-preview.png';
+import paaxPreview from '../../assets/projects/paax-preview.png';
 import './projects.scss';
 
 export interface ProjectSlot {
@@ -20,53 +24,53 @@ const PROJECT_SLOTS: ProjectSlot[] = [
     {
         id: 1,
         title: {
-            es: 'Proyecto 01',
-            en: 'Project 01'
+            es: 'Ankhor',
+            en: 'Ankhor'
         },
         description: {
-            es: 'Espacio reservado para imagen y enlace del proyecto 1.',
-            en: 'Reserved slot for project 1 image and link.'
+            es: 'App móvil offline de notas con listas de verificación y tablero Kanban mini en SQLite local.',
+            en: 'Offline mobile notes app with checklists and a mini Kanban board powered by local SQLite.'
         },
-        image: '',
+        image: ankhorPreview,
         url: '#projects'
     },
     {
         id: 2,
         title: {
-            es: 'Proyecto 02',
-            en: 'Project 02'
+            es: 'Xenith',
+            en: 'Xenith'
         },
         description: {
-            es: 'Espacio reservado para imagen y enlace del proyecto 2.',
-            en: 'Reserved slot for project 2 image and link.'
+            es: 'App móvil de finanzas personales 100% offline con balance, metas de ahorro, análisis gráfico y calendario de pagos.',
+            en: '100% offline personal finance mobile app with period balance, savings goals, chart analytics, and payment calendar.'
         },
-        image: '',
+        image: xenithPreview,
         url: '#projects'
     },
     {
         id: 3,
         title: {
-            es: 'Proyecto 03',
-            en: 'Project 03'
+            es: 'DiariVent',
+            en: 'DiariVent'
         },
         description: {
-            es: 'Espacio reservado para imagen y enlace del proyecto 3.',
-            en: 'Reserved slot for project 3 image and link.'
+            es: 'App móvil de administración financiera y punto de venta para pequeñas y micro empresas: venta rápida, caja, artículos e historial.',
+            en: 'Mobile financial management and POS app for small & micro businesses: fast sale, cash register, inventory, and history.'
         },
-        image: '',
+        image: diariventPreview,
         url: '#projects'
     },
     {
         id: 4,
         title: {
-            es: 'Proyecto 04',
-            en: 'Project 04'
+            es: 'Paax',
+            en: 'Paax'
         },
         description: {
-            es: 'Espacio reservado para imagen y enlace del proyecto 4.',
-            en: 'Reserved slot for project 4 image and link.'
+            es: 'Reproductor de música móvil con interfaz simple y limpia: biblioteca por canciones, artistas, álbumes y géneros.',
+            en: 'Mobile music player with a clean, simple interface: library organized by songs, artists, albums, and genres.'
         },
-        image: '',
+        image: paaxPreview,
         url: '#projects'
     },
     {
