@@ -3,6 +3,9 @@ import { Header } from './components/header/header'
 import { Footer } from './components/footer/footer'
 import { Hero } from './components/hero/hero'
 import { About } from './components/about/about'
+import badgeDevImg from './assets/badges/badge-dev.png'
+import badge3dImg from './assets/badges/badge-3d.png'
+import badgeGamingImg from './assets/badges/badge-gaming.png'
 import { Projects } from './components/projects/projects'
 import { Contact } from './components/contact/contact'
 import { LanguageProvider, useLanguage } from './context/LanguageContext'
@@ -418,7 +421,7 @@ function AppContent() {
           aria-label="dev"
           title="dev"
         >
-          <i className="pi pi-code" />
+          <img src={badgeDevImg} alt="dev" className="orbit_badge_img" />
         </button>
         <button
           type="button"
@@ -427,7 +430,7 @@ function AppContent() {
           aria-label="3d"
           title="3d"
         >
-          <i className="pi pi-box" />
+          <img src={badge3dImg} alt="3d" className="orbit_badge_img" />
         </button>
         <button
           type="button"
@@ -436,7 +439,7 @@ function AppContent() {
           aria-label="extra"
           title="extra"
         >
-          <i className="pi pi-star" />
+          <img src={badgeGamingImg} alt="extra" className="orbit_badge_img" />
         </button>
       </div>
 
